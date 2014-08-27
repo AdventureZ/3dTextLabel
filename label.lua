@@ -93,17 +93,17 @@ end
 function labelFunction(id, x, y, z, text, dis, color, alpha)
     if not LabelID[id] then return nil end
 
-    local px,py,pz = getElementPosition(localPlayer)
-    local distance = getDistanceBetweenPoints3D(x,y,z,px,py,pz)
+    local EleX, EleY, EleZ = getElementPosition(localPlayer)
+    local distance = getDistanceBetweenPoints3D(x, y, z, EleX, EleY, EleZ)
     if distance <= dis then
-        local sx,sy = getScreenFromWorldPosition(x, y, z+0.95, 0.06)
-        if not sx then return end
-        local scale = 1/(0.3*(distance/dis))
-        dxDrawText(text:gsub("#%x%x%x%x%x%x", ""), sx+2, sy-30+2, sx, sy-30, tonumber("0x"..alpha.."000000"), math.min(0.3*(dis/distance)*1.4,1), "default-bold", "center", "bottom", false, false, false)
-        dxDrawText(text:gsub("#%x%x%x%x%x%x", ""), sx-2, sy-30+2, sx, sy-30, tonumber("0x"..alpha.."000000"), math.min(0.3*(dis/distance)*1.4,1), "default-bold", "center", "bottom", false, false, false)
-        dxDrawText(text:gsub("#%x%x%x%x%x%x", ""), sx+2, sy-30-2, sx, sy-30, tonumber("0x"..alpha.."000000"), math.min(0.3*(dis/distance)*1.4,1), "default-bold", "center", "bottom", false, false, false)
-        dxDrawText(text:gsub("#%x%x%x%x%x%x", ""), sx-2, sy-30-2, sx, sy-30, tonumber("0x"..alpha.."000000"), math.min(0.3*(dis/distance)*1.4,1), "default-bold", "center", "bottom", false, false, false)
-        dxDrawText(text, sx, sy-30, sx, sy-30, color, math.min(0.3*(dis/distance)*1.4,1), "default-bold", "center", "bottom", false, false, false, true)
+        local NewX, NewY = getScreenFromWorldPosition(x, y, z+0.95, 0.06)
+        if not NewX then return false end
+        --local scale = 1/(0.3*(distance/dis))
+        dxDrawText(text:gsub("#%x%x%x%x%x%x", ""), NewX+2, NewY-30+2, NewX, NewY-30, tonumber("0x"..alpha.."000000"), math.min(0.3*(dis/distance)*1.4,1), "default-bold", "center", "center", false, false, false)
+        dxDrawText(text:gsub("#%x%x%x%x%x%x", ""), NewX-2, NewY-30+2, NewX, NewY-30, tonumber("0x"..alpha.."000000"), math.min(0.3*(dis/distance)*1.4,1), "default-bold", "center", "center", false, false, false)
+        dxDrawText(text:gsub("#%x%x%x%x%x%x", ""), NewX+2, NewY-30-2, NewX, NewY-30, tonumber("0x"..alpha.."000000"), math.min(0.3*(dis/distance)*1.4,1), "default-bold", "center", "center", false, false, false)
+        dxDrawText(text:gsub("#%x%x%x%x%x%x", ""), NewX-2, NewY-30-2, NewX, NewY-30, tonumber("0x"..alpha.."000000"), math.min(0.3*(dis/distance)*1.4,1), "default-bold", "center", "center", false, false, false)
+        dxDrawText(text, NewX, NewY-30, NewX, NewY-30, color, math.min(0.3*(dis/distance)*1.4,1), "default-bold", "center", "center", false, false, false, true)
     end
 end
 function showLabel(id)
