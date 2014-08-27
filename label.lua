@@ -1,8 +1,3 @@
-local houseLabels = {}        
-addEvent("create3DText", true)    
-addEventHandler("create3DText", root, function(id, text, x, y, z)
-    houseLabels[id] = create3DTextLabel(text, 0xFFFFFF00, x, y, z, 30, 0)
-end)
 
 local LabelID = {}
 local LabelAll = 0
