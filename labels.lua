@@ -24,12 +24,9 @@ end
 
 function update3DTextLabel(id, text, color, x, y, z, dist, dimens, toelement)
     if not toelement or not isElement(toelement) then toelement = root end
-    if not x or not tonumber(x) then x = 0 end
-    if not y or not tonumber(y) then y = 0 end
-    if not z or not tonumber(z) then z = 5 end
     
     triggerClientEvent(toelement, "doUpdateLabel", toelement, id, text, color, x, y, z, dist, dimens)
-end
+end 
 
 function attach3DTextLabelToElement(id, element, x, y, z, dimens, toelement)
     if not toelement or not isElement(toelement) then toelement = root end
