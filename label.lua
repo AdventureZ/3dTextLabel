@@ -1,6 +1,21 @@
-
 local LabelID = {}
-local LabelAll = 0
+LabelAll = 0
+
+addEvent("doCreateLabel", true)
+addEventHandler("doCreateLabel", root, function(t, c, x, y, z, d, f) create3DTextLabel(t, c, x, y, z, d, f) end)
+
+addEvent("doRemoveLabel", true)
+addEventHandler("doRemoveLabel", root, function(id) delete3DTextLabel(id) end)
+
+addEvent("doUpdateLabel", true)
+addEventHandler("doUpdateLabel", root, function(i, t, c, x, y, z, d, f) update3DTextLabel(i, t, c, x, y, z, d, f) end)
+
+addEvent("doAttachLabel", true)
+addEventHandler("doAttachLabel", root, function(i, e, x, y, z, d) attach3DTextLabelToElement(i, e, x, y, z, d) end)
+
+addEvent("doDetachLabel", true)
+addEventHandler("doDetachLabel", root, function(i) detach3DTextLabel(i) end)
+
 function create3DTextLabel(text, color, x, y, z, dis, dimens) --def 150
     if not text then return false end
     if not color then color = tocolor(255, 255, 255, 255) end 
@@ -36,6 +51,8 @@ function create3DTextLabel(text, color, x, y, z, dis, dimens) --def 150
     if LabelID[LabelAll]["Dimn"] and LabelID[LabelAll]["Dimn"] >= 0 then LabelID[LabelAll]["BDim"] = true end
     
     showLabel(LabelAll)    
+    
+    triggerServerEvent("addLabels", root, LabelAll)
     
     return LabelAll
 end
@@ -93,17 +110,16 @@ end
 function labelFunction(id, x, y, z, text, dis, color, alpha)
     if not LabelID[id] then return nil end
 
-    local EleX, EleY, EleZ = getElementPosition(localPlayer)
-    local distance = getDistanceBetweenPoints3D(x, y, z, EleX, EleY, EleZ)
+    local NewX,NewY,NewZ = getElementPosition(localPlayer)
+    local distance = getDistanceBetweenPoints3D(x,y,z,NewX,NewY,NewZ)
     if distance <= dis then
-        local NewX, NewY = getScreenFromWorldPosition(x, y, z+0.95, 0.06)
-        if not NewX then return false end
-        --local scale = 1/(0.3*(distance/dis))
-        dxDrawText(text:gsub("#%x%x%x%x%x%x", ""), NewX+2, NewY-30+2, NewX, NewY-30, tonumber("0x"..alpha.."000000"), math.min(0.3*(dis/distance)*1.4,1), "default-bold", "center", "center", false, false, false)
-        dxDrawText(text:gsub("#%x%x%x%x%x%x", ""), NewX-2, NewY-30+2, NewX, NewY-30, tonumber("0x"..alpha.."000000"), math.min(0.3*(dis/distance)*1.4,1), "default-bold", "center", "center", false, false, false)
-        dxDrawText(text:gsub("#%x%x%x%x%x%x", ""), NewX+2, NewY-30-2, NewX, NewY-30, tonumber("0x"..alpha.."000000"), math.min(0.3*(dis/distance)*1.4,1), "default-bold", "center", "center", false, false, false)
-        dxDrawText(text:gsub("#%x%x%x%x%x%x", ""), NewX-2, NewY-30-2, NewX, NewY-30, tonumber("0x"..alpha.."000000"), math.min(0.3*(dis/distance)*1.4,1), "default-bold", "center", "center", false, false, false)
-        dxDrawText(text, NewX, NewY-30, NewX, NewY-30, color, math.min(0.3*(dis/distance)*1.4,1), "default-bold", "center", "center", false, false, false, true)
+        local ScX,ScY = getScreenFromWorldPosition(x, y, z+0.95, 0.06)
+        if not ScX then return end
+        dxDrawText(text:gsub("#%x%x%x%x%x%x", ""), ScX+2, ScY-30+2, ScX, ScY-30, tonumber("0x"..alpha.."000000"), math.min(0.3*(dis/distance)*1.4,1), "default-bold", "center", "bottom", false, false, false)
+        dxDrawText(text:gsub("#%x%x%x%x%x%x", ""), ScX-2, ScY-30+2, ScX, ScY-30, tonumber("0x"..alpha.."000000"), math.min(0.3*(dis/distance)*1.4,1), "default-bold", "center", "bottom", false, false, false)
+        dxDrawText(text:gsub("#%x%x%x%x%x%x", ""), ScX+2, ScY-30-2, ScX, ScY-30, tonumber("0x"..alpha.."000000"), math.min(0.3*(dis/distance)*1.4,1), "default-bold", "center", "bottom", false, false, false)
+        dxDrawText(text:gsub("#%x%x%x%x%x%x", ""), ScX-2, ScY-30-2, ScX, ScY-30, tonumber("0x"..alpha.."000000"), math.min(0.3*(dis/distance)*1.4,1), "default-bold", "center", "bottom", false, false, false)
+        dxDrawText(text, ScX, ScY-30, ScX, ScY-30, color, math.min(0.3*(dis/distance)*1.4,1), "default-bold", "center", "bottom", false, false, false, true)
     end
 end
 function showLabel(id)
