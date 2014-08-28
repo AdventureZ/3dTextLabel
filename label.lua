@@ -5,7 +5,7 @@ addEvent("doCreateLabel", true)
 addEventHandler("doCreateLabel", root, function(t, c, x, y, z, d, f) create3DTextLabel(t, c, x, y, z, d, f) end)
 
 addEvent("doRemoveLabel", true)
-addEventHandler("doRemoveLabel", root, function(id) delete3DTextLabel(id) end)
+addEventHandler("doRemoveLabel", root, function(id) delete3DTextLabel(id) end) 
 
 addEvent("doUpdateLabel", true)
 addEventHandler("doUpdateLabel", root, function(i, t, c, x, y, z, d, f) update3DTextLabel(i, t, c, x, y, z, d, f) end)
