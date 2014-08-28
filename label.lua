@@ -114,7 +114,7 @@ function labelFunction(id, x, y, z, text, dis, color, alpha)
     local distance = getDistanceBetweenPoints3D(x,y,z,NewX,NewY,NewZ)
     if distance <= dis then
         local ScX,ScY = getScreenFromWorldPosition(x, y, z+0.95, 0.06)
-        if not ScX then return end
+        if not ScX then return false end
         dxDrawText(text:gsub("#%x%x%x%x%x%x", ""), ScX+2, ScY-30+2, ScX, ScY-30, tonumber("0x"..alpha.."000000"), math.min(0.3*(dis/distance)*1.4,1), "default-bold", "center", "bottom", false, false, false)
         dxDrawText(text:gsub("#%x%x%x%x%x%x", ""), ScX-2, ScY-30+2, ScX, ScY-30, tonumber("0x"..alpha.."000000"), math.min(0.3*(dis/distance)*1.4,1), "default-bold", "center", "bottom", false, false, false)
         dxDrawText(text:gsub("#%x%x%x%x%x%x", ""), ScX+2, ScY-30-2, ScX, ScY-30, tonumber("0x"..alpha.."000000"), math.min(0.3*(dis/distance)*1.4,1), "default-bold", "center", "bottom", false, false, false)
