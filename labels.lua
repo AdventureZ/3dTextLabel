@@ -41,8 +41,8 @@ function detach3DTextLabel(id, toelement)
     
     triggerClientEvent(toelement, "doDetachLabel", toelement, id)
 end
-addEventHandler("onResourceStart", root,
+--[[addEventHandler("onResourceStart", root,
     function()
         local labelz = create3DTextLabel("3D Text Label", 0xFFFF0000, 0, 0, 0, 3000, -1)
         local labels = create3DTextLabel("3D Text Label", 0xFFFF0000, 0, 0, 20, 3000, -1)
-    end)
+    end)]]
